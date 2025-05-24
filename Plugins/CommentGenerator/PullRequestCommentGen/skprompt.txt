@@ -1,0 +1,10 @@
+﻿# TASK
+Could you describe briefly {0}, for the next code with the given git diffs?
+Please, also do not add introduction words, just print errors in the format: ""line_number: cause effect""
+If there are no {{$no_response}} just say ""{{$problems}}"".
+
+## DIFFS:
+{{$diffs}}
+
+## Full code from the file:
+{{$code}}

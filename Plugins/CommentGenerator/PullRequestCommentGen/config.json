@@ -1,0 +1,36 @@
+{
+    "schema": 1,
+    "description": "Generate Comment Review on Pull Request",
+    "execution_settings": {
+        "default": {
+            "max_tokens": 150,
+            "temperature": 0.9,
+            "top_p": 0.1,
+            "presence_penalty": 0.6,
+            "frequency_penalty": 0.1
+        },
+        "input_variables": [
+            {
+                "name": "code",
+                "description": "source code",
+                "default": ""
+            },
+            {
+                "name": "diffs",
+                "description": "the differences between two versions of source code.",
+                "default": ""
+            },
+            {
+                "name": "no_response",
+                "description": "No Response Message.",
+                "default": "No critical issues found"
+            },
+            {
+                "name": "problems",
+                "description": "Error, issues and potential crashes or unhandled exceptions.",
+                "default": "errors, issues, potential crashes or unhandled exceptions"
+            }
+
+        ]
+    }
+}

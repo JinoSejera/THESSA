@@ -1,0 +1,6 @@
+@THESSA_HostAddress = http://localhost:5033
+
+GET {{THESSA_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
