@@ -1,8 +1,8 @@
 ﻿using THESSA.Models;
 
-namespace THESSA.Controllers
+namespace THESSA.Contract
 {
-    public interface IThessBotRepository
+    public interface IThessaBotRepository
     {
         Task<string> RequestDiffs(string code, string diff);
 
