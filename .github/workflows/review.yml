@@ -1,0 +1,44 @@
+﻿name: THESSA PR Reviewer
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ai_pr_reviewer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Call Review API
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+          TARGET_EXTENSIONS: ${{ vars.TARGET_EXTENSIONS }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          PULL_NUMBER: ${{ github.event.number }}
+          COMMIT_ID: ${{ github.event.pull_request.head.sha }}
+        run: |
+          curl -X 'POST' \
+            'https://localhost:7001/api/v1/GitHub' \
+            -H 'accept: */*' \
+            -H "metadata: token,$TOKEN,headRef,$HEAD_REF,baseRef,$BASE_REF,targetExtensions,$TARGET_EXTENSIONS" \
+            -H 'Content-Type: application/json' \
+            -d "{
+              \"repositoryName\": \"${REPO_NAME}\",
+              \"pullRequestNumber\": ${PULL_NUMBER},
+              \"repositoryOwner\": \"${REPO_OWNER}\",
+              \"commitId\": \"${COMMIT_ID}\"
+            }"
+
+      - name: Upload result as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AI-requests
+          path: output.txt
+          retention-days: 1

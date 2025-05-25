@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using THESSA.Contract;
 using THESSA.Models;
@@ -43,7 +44,7 @@ namespace THESSA.Repository
 
         private async Task<string?> PostJsonAsync(string url, object body, string errorContext)
         {
-            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, content);
             if (response.IsSuccessStatusCode)
             {

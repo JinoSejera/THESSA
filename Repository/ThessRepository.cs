@@ -20,5 +20,7 @@ public class ThessRepository : IThessBotRepository
         };
 
         var result = _kernel.InvokeStreamingAsync("CommentGenerator", "PullRequestCOmmentGen", arguments);
+
+        return Task.FromResult("");
     }
 }
