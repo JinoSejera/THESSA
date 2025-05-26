@@ -4,7 +4,11 @@ namespace THESSA.Contract
 {
     public interface IGithubService
     {
-        Task<string?> PostCommentToLineAsync(string token, PostCommentToLineRequestBody requestBody, RepositoryMetadata repoMetadata);
-        Task<string?> PostGeneralCommentAsync(string text, string token, RepositoryMetadata repoMetaData);
+        Task<bool> PostCommentToLineAsync(string token, string message, string commitId, string filePath, int position, RepositoryMetadata repoMetadata);
+        Task<bool> PostGeneralCommentAsync(string text, string token, RepositoryMetadata repoMetaData);
+        Task<List<FileData>> GetFilesDiffAsync(string token, RepositoryMetadata repoMetadata);
+        Task<string> GetFileContentAsync(string token, string fileUrl);
+
+
     }
 }
