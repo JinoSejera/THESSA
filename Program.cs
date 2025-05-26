@@ -1,4 +1,6 @@
 using Extensions;
+using THESSA.Contract;
+using THESSA.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ services.AddHttpClient();
 // Register Semantic Kernel
 builder.Services.AddKernelServices();
 
+builder.Services.AddScoped<IThessaBotRepository, ThessaRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
