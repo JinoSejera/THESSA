@@ -31,7 +31,7 @@ namespace THESSA.Services
         {
             try
             {
-                return await _thessaRepos.RequestDiffs(code, diff);
+                return await _thessaRepos.RequestDiffsAsync(code, diff);
             }
             catch (Exception ex)
             {

@@ -19,7 +19,7 @@ public class ThessaRepository : IThessaBotRepository
         return sourceNoSpaces.StartsWith(target);
     }
 
-    public async Task<string> RequestDiffs(string code, string diff)
+    public async Task<string> RequestDiffsAsync(string code, string diff)
     {
         var sb = new System.Text.StringBuilder();
 
