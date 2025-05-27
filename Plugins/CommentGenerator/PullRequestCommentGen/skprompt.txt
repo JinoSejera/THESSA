@@ -1,7 +1,10 @@
 ﻿# TASK
-Could you describe briefly {{$problems}}, for the next code with the given git diffs?
+Could you describe briefly "errors, issues, potential crashes or unhandled exceptions", for the next code with the given git diffs?
 Please, also do not add introduction words, just print errors in the format: ""line_number: cause effect""
-If there are no {{$problems}} just say ""{{$no_response}}"".
+If there are no "errors, issues, potential crashes or unhandled exceptions" just say ""No critical issues found"".
+
+# ADDITIONAL INFROMATION
+- The position in the diff where you want to add a review comment. Note this value is not the same as the line number in the file. The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
 
 ## DIFFS:
 {{$diffs}}

@@ -24,7 +24,7 @@ public class GitHubService : IGithubService
                 body = message,
                 commit_id = commitId,
                 path = filePath,
-                position = position
+                line = position
 
             };
 
