@@ -9,16 +9,30 @@ using THESSA.Models;
 
 namespace THESSA.Repository
 {
+    /// <summary>
+    /// Repository for interacting with GitHub API for pull request comments and file diffs.
+    /// </summary>
     public class GitHubRepository : IGitHub
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GitHubRepository"/> class.
+        /// </summary>
+        /// <param name="httpClient">The HTTP client to use for requests.</param>
         public GitHubRepository(HttpClient httpClient)
         {
             _httpClient = httpClient ?? throw new ArgumentException(nameof(httpClient));
             _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("THESSA-App"); // GitHub requires a User-Agent
         }
 
+        /// <summary>
+        /// Posts a comment to a specific line in a pull request.
+        /// </summary>
+        /// <param name="token">GitHub access token.</param>
+        /// <param name="requestBody">Request body containing comment details.</param>
+        /// <param name="repoMetadata">Repository metadata.</param>
+        /// <returns>Response content as string.</returns>
         public async Task<string?> PostCommentToLineAsync(string token, PostCommentToLineRequestBody requestBody, RepositoryMetadata repoMetadata)
         {
             SetGitHubHeaders(token);
@@ -28,6 +42,13 @@ namespace THESSA.Repository
             return await response.Content.ReadAsStringAsync();
         }
 
+        /// <summary>
+        /// Posts a general comment to a pull request.
+        /// </summary>
+        /// <param name="text">Comment text.</param>
+        /// <param name="token">GitHub access token.</param>
+        /// <param name="repoMetaData">Repository metadata.</param>
+        /// <returns>Response content as string.</returns>
         public async Task<string?> PostGeneralCommentAsync(string text, string token, RepositoryMetadata repoMetaData)
         {
             SetGitHubHeaders(token);
@@ -38,6 +59,12 @@ namespace THESSA.Repository
             return await response.Content.ReadAsStringAsync();
         }
 
+        /// <summary>
+        /// Gets the list of files changed in a pull request along with their diff patches.
+        /// </summary>
+        /// <param name="token">GitHub access token.</param>
+        /// <param name="repoMetadata">Repository metadata.</param>
+        /// <returns>List of file data with diffs.</returns>
         public async Task<List<FileData>> GetDiffFilesAsync(string token, RepositoryMetadata repoMetadata)
         {
             SetGitHubHeaders(token);
@@ -81,6 +108,12 @@ namespace THESSA.Repository
             return result;
         }
 
+        /// <summary>
+        /// Gets the content of a file from GitHub.
+        /// </summary>
+        /// <param name="token">GitHub access token.</param>
+        /// <param name="fileUrl">URL to the file content API endpoint.</param>
+        /// <returns>File content as a string.</returns>
         public async Task<string> GetFileContentAsync(string token, string fileUrl)
         {
             SetGitHubHeaders(token);
