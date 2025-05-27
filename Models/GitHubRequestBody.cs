@@ -14,6 +14,6 @@ namespace THESSA.Models
         public string RepositoryOwner { get; set; }
 
         [Required]
-        public string CommitId { get; set; }
+        public string? CommitId { get; set; }
     }
 }
